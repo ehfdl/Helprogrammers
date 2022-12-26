@@ -1,51 +1,40 @@
 import React from 'react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { __getQuestions } from '../redux/module/QuestionsSlice';
 import { __addQuestions } from '../redux/module/QuestionsSlice';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-
 const Input = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [url, setUrl] = useState('');
   const [writer, setWriter] = useState('');
   const [password, setPassword] = useState('');
-
   const selectSiteList = ['baekjoon', 'programmers', 'SW Expert Academy'];
   const [place, setPlace] = useState('');
-
   const handleSelectSite = (e) => {
     setPlace(e.target.value);
   };
-
   const selectLanguageList = ['javacript', 'python', 'c++', 'java'];
   const [language, setLanguage] = useState('');
-
   const handleSelectLanguage = (e) => {
     setLanguage(e.target.value);
   };
-
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
-
   const onSubmitHandler = (e) => {
     e.preventDefault();
-
     const newQuestion = {
       title,
       content,
       url,
       writer,
-      password,
+      password: Number(password),
       place,
       language,
       id: uuidv4(),
     };
-
     if (title.replace(/ /g, '') === '') {
       alert('제목을 입력해주세요!');
       return;
@@ -68,6 +57,11 @@ const Input = () => {
       alert('언어를 선택해주세요!');
       return;
     }
+    if (window.confirm('작성을 완료하시겠습니까??') === true) {
+      navigate('/');
+    } else {
+      return;
+    }
     dispatch(__addQuestions(newQuestion));
     setTitle('');
     setContent('');
@@ -76,29 +70,22 @@ const Input = () => {
     setPassword('');
     setPlace('');
     setLanguage('');
-    alert('작성을 완료했습니다.');
   };
-
   const onChangeInputTitle = (e) => {
     setTitle(e.target.value);
   };
-
   const onChangeInputContent = (e) => {
     setContent(e.target.value);
   };
-
   const onChangeInputUrl = (e) => {
     setUrl(e.target.value);
   };
-
   const onChangeInputWriter = (e) => {
     setWriter(e.target.value);
   };
-
   const onChangeInputPassword = (e) => {
     setPassword(e.target.value);
   };
-
   return (
     <Layout>
       <InputBoxs>
@@ -125,7 +112,6 @@ const Input = () => {
                 ))}
               </DropdownButtonLanguage>
             </DropdownButton>
-
             <div>
               <InputNamePass
                 value={writer}
@@ -136,12 +122,11 @@ const Input = () => {
               <InputNamePass
                 value={password}
                 onChange={onChangeInputPassword}
-                type="text"
+                type="Number"
                 placeholder="비밀번호 입력"
               />
             </div>
           </InputBox>
-
           <ContentsBox>
             <InputUrl
               value={url}
@@ -170,7 +155,6 @@ const Input = () => {
               >
                 ← 나가기
               </BackButton>
-
               <AddButton type="submit">작성완료</AddButton>
             </ButtonBox>
           </ContentsBox>
@@ -179,34 +163,28 @@ const Input = () => {
     </Layout>
   );
 };
-
 export default Input;
-
 const InputBoxs = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 24px;
   gap: 32px;
-
   position: absolute;
   height: 920px;
   left: 10%;
   right: 10%;
   bottom: 20px;
-
   flex: none;
   order: 0;
   flex-grow: 0;
 `;
-
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 24px;
   gap: 32px;
-
   position: absolute;
   width: 1300px;
   height: 918px;
@@ -214,95 +192,77 @@ const Layout = styled.div`
   right: 14.47%;
   top: 140px;
   margin: 0 auto;
-
   background: #44454a;
   border-radius: 20px;
 `;
-
 const InputBox = styled.div`
   height: 100px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
-
 const InputTitle = styled.input`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 22px;
   gap: 32px;
-
   width: 1180px;
   height: 68px;
   color: #ffffff;
-
   background: #2f2f33;
   border-radius: 20px;
   border: none;
-
   flex: none;
   order: 1;
   flex-grow: 0;
 `;
-
 const InputContent = styled.textarea`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 22px;
   gap: 32px;
-
   width: 1180px;
   height: 570px;
   color: #ffffff;
-
   background: #2f2f33;
   border-radius: 20px;
   border: none;
-
   flex: none;
   order: 2;
   flex-grow: 0;
   white-space: pre-wrap;
   resize: none;
 `;
-
 const InputUrl = styled.input`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 22px;
   gap: 32px;
-
   width: 1180px;
   height: 68px;
   color: #ffffff;
-
   background: #2f2f33;
   border-radius: 20px;
   border: none;
-
   flex: none;
   order: 0;
   flex-grow: 0;
 `;
-
 const DropdownButton = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   padding: 0px;
   gap: 30px;
-
   width: 279px;
-
   flex: none;
   order: 0;
   flex-grow: 0;
   /* height: -webkit-fill-available; */
 `;
-
 const ButtonBox = styled.div`
   display: flex;
   flex-direction: row;
@@ -310,15 +270,12 @@ const ButtonBox = styled.div`
   align-items: center;
   padding: 0px;
   gap: 12px;
-
   width: 1180px;
   height: 44px;
-
   flex: none;
   order: 3;
   flex-grow: 0;
 `;
-
 const AddButton = styled.button`
   display: flex;
   flex-direction: row;
@@ -326,19 +283,16 @@ const AddButton = styled.button`
   align-items: center;
   padding: 10px 16px;
   gap: 10px;
-
   width: 91px;
   height: 39px;
-
   background: #0df0ac;
   border-radius: 20px;
   border: none;
-
   flex: none;
   order: 0;
   flex-grow: 0;
+  cursor: pointer;
 `;
-
 const BackButton = styled.button`
   display: flex;
   flex-direction: row;
@@ -346,20 +300,17 @@ const BackButton = styled.button`
   align-items: center;
   padding: 10px 0px;
   gap: 6px;
-
   width: 75px;
   height: 44px;
-
   border-radius: 20px;
   border: none;
   background-color: #44454a;
   color: white;
-
   flex: none;
   order: 0;
   flex-grow: 0;
+  cursor: pointer;
 `;
-
 const InputNamePass = styled.input`
   width: 190px;
   height: 40px;
@@ -379,8 +330,15 @@ const InputNamePass = styled.input`
     box-shadow: 3px 3px 5px #aaa;
     scale: 1.01;
   }
+  ::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  ::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 `;
-
 const DropdownButtonSite = styled.select`
   display: flex;
   flex-direction: row;
@@ -388,20 +346,16 @@ const DropdownButtonSite = styled.select`
   align-items: center;
   padding: 10px 16px;
   gap: 10px;
-
   width: 158px;
   height: 39px;
-
   color: #90969e;
   background: #2f2f33;
   border-radius: 20px;
   border: none;
-
   flex: none;
   order: 0;
   flex-grow: 0;
 `;
-
 const DropdownButtonLanguage = styled.select`
   display: flex;
   flex-direction: row;
@@ -409,32 +363,25 @@ const DropdownButtonLanguage = styled.select`
   align-items: center;
   padding: 10px 16px;
   gap: 10px;
-
   width: 120px;
   height: 39px;
-
   color: #90969e;
   background: #2f2f33;
   border-radius: 20px;
   border: none;
-
   flex: none;
   order: 1;
   flex-grow: 0;
 `;
-
 const ContentsBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 0px;
   gap: 16px;
-
   width: 1180px;
   height: 10px;
-
   /* Inside auto layout */
-
   flex: none;
   order: 1;
   flex-grow: 0;
