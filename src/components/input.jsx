@@ -1,12 +1,11 @@
 import React from 'react';
-import { useState, useEffect, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { __getQuestions } from '../redux/module/QuestionsSlice';
 import { __addQuestions } from '../redux/module/QuestionsSlice';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import { Link } from 'react-router-dom';
 
 const Input = () => {
   const [title, setTitle] = useState('');
@@ -33,29 +32,7 @@ const Input = () => {
 
   const dispatch = useDispatch();
 
-  // const contentsChangeHandler = useCallback((e) => {
-  //   setContent(e.target.value);
-  // }, []);
-
-  // const { isLoading, error } = useSelector((state) => state.questions);
-
-  // useEffect(() => {
-  //   dispatch(__getQuestions());
-  // }, [dispatch]);
-
-  // if (isLoading) {
-  //   return <div>로딩 중....</div>;
-  // }
-
-  // if (error) {
-  //   return <div>{error.message}</div>;
-  // }
-
   const onSubmitHandler = (e) => {
-    // const contentReplaceNewline = () => {
-    //   return content.replaceAll('\r\n', '<br>');
-    // };
-
     e.preventDefault();
 
     const newQuestion = {
@@ -69,39 +46,6 @@ const Input = () => {
       id: uuidv4(),
     };
 
-    // if (
-    //   title &&
-    //   content &&
-    //   url &&
-    //   writer &&
-    //   password.length === 4 &&
-    //   place &&
-    //   language
-    // ) {
-    //   dispatch(__addQuestions(newQuestion));
-    //   setTitle('');
-    //   setContent('');
-    //   setUrl('');
-    //   setWriter('');
-    //   setPassword('');
-    //   setPlace('');
-    //   setLanguage('');
-    //   alert('작성을 완료했습니다.');
-    // } else if (title === '') {
-    //   return alert('제목을 입력해 주세요');
-    // } else if (content === '') {
-    //   return alert('내용을 입력해 주세요');
-    // } else if (url === '') {
-    //   return alert('URL을 입력해 주세요');
-    // } else if (writer === '') {
-    //   return alert('이름을 입력해 주세요');
-    // } else if (password === '') {
-    //   return alert('비밀번호를 입력해 주세요');
-    // } else if (place === '') {
-    //   return alert('사이트를 선택해 주세요');
-    // } else if (language === '') {
-    //   return alert('언어를 선택해 주세요');
-    // }
     if (title.replace(/ /g, '') === '') {
       alert('제목을 입력해주세요!');
       return;
