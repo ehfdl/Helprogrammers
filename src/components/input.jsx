@@ -5,6 +5,7 @@ import { __addQuestions } from '../redux/module/QuestionsSlice';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+
 const Input = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -21,10 +22,16 @@ const Input = () => {
   const handleSelectLanguage = (e) => {
     setLanguage(e.target.value);
   };
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const onSubmitHandler = (e) => {
     e.preventDefault();
+
+    let reg_url =
+      /^(https?:\/\/)?([a-z\d\.-]+)\.([a-z\.]{2,6})([\/\w\.-]*)*\/?$/; // URL 검사식
+
     const newQuestion = {
       title,
       content,
@@ -56,7 +63,11 @@ const Input = () => {
     } else if (language.replace(/ /g, '') === '') {
       alert('언어를 선택해주세요!');
       return;
+    } else if (!reg_url.test(url)) {
+      alert('URL을 정확하게 입력해주세요!');
+      return;
     }
+
     if (window.confirm('작성을 완료하시겠습니까??') === true) {
       navigate('/');
     } else {
@@ -80,6 +91,7 @@ const Input = () => {
   const onChangeInputUrl = (e) => {
     setUrl(e.target.value);
   };
+
   const onChangeInputWriter = (e) => {
     setWriter(e.target.value);
   };
@@ -323,6 +335,8 @@ const BackButton = styled.button`
 `;
 
 const InputNamePass = styled.input`
+  -webkit-appearance: none;
+  margin: 0;
   width: 190px;
   height: 40px;
   background-color: ${(props) => props.theme.colors.insidecard};
@@ -340,6 +354,14 @@ const InputNamePass = styled.input`
   &:focus {
     box-shadow: 3px 3px 5px #aaa;
     scale: 1.01;
+  }
+  ::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  ::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
 `;
 

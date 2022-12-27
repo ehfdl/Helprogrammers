@@ -101,12 +101,14 @@ const Middle = styled.section`
   flex-direction: column;
   padding-top: 20px;
   min-width: 1000px;
+  /* border: 1px solid red; */
+  /* background-color: yellow; */
 `;
 
 const AddHintBox = styled.form`
   width: 100%;
   min-height: 200px;
-  background-color: ${(props) => props.theme.colors.card};
+  background-color: #44454a;
   border-radius: 20px;
   padding: 24px;
 `;
@@ -120,14 +122,14 @@ const LevelCheckSpan = styled.span`
   font-size: 18px;
   width: 36px;
   height: 36px;
-  background: ${(props) => props.theme.colors.insidecard};
+  background: #2f2f33;
   border-radius: 50%;
   border: none;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  color: ${(props) => props.theme.colors.placeholder};
+  color: #ffffff;
 `;
 
 const LevelCheckRadio = styled.input.attrs({ type: 'radio' })`
@@ -142,10 +144,10 @@ const LevelCheckRadio = styled.input.attrs({ type: 'radio' })`
     color: black;
     background-color: ${(props) =>
       props.value === '상'
-        ? props.theme.colors.high
+        ? '#0DF0AC'
         : props.value === '중'
-        ? props.theme.colors.middle
-        : props.theme.colors.low};
+        ? '#89F9D7'
+        : '#CBFFEF'};
   }
 
   display: none;
@@ -154,11 +156,11 @@ const LevelCheckRadio = styled.input.attrs({ type: 'radio' })`
 const InputNamePassword = styled.input`
   width: 190px;
   height: 40px;
-  background-color: ${(props) => props.theme.colors.insidecard};
+  background-color: #2f2f33;
   border-radius: 20px;
   position: relative;
   border: none;
-  color: ${(props) => props.theme.colors.textcolor};
+  color: #ffffff;
   left: 36%;
   margin-left: 10px;
   padding-left: 16px;
@@ -182,7 +184,7 @@ const InputNamePassword = styled.input`
 const AddButton = styled.button`
   width: 60px;
   height: 40px;
-  background-color: ${(props) => props.theme.colors.pointcolor};
+  background-color: #0df0ac;
   border-radius: 20px;
   border: transparent;
   position: relative;
@@ -192,11 +194,11 @@ const AddButton = styled.button`
 const InputHint = styled.textarea`
   margin-top: 30px;
   width: 100%;
-  min-height: 150px;
-  background-color: ${(props) => props.theme.colors.insidecard};
+  min-height: 70px;
+  background-color: #2f2f33;
   border: transparent;
   font-size: 20px;
-  color: ${(props) => props.theme.colors.textcolor};
+  color: #ffffff;
   border-radius: 20px;
   padding-left: 16px;
   padding-right: 16px;
