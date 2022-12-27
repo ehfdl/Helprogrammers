@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { Children } from 'react';
 import { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { __addQuestions } from '../redux/module/QuestionsSlice';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import CustomButton from '../hooks/CustomButton';
+
 const Input = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -180,15 +182,15 @@ const Input = () => {
               placeholder="내용을 입력해 주세요"
             />
             <ButtonBox>
-              <BackButton
-                type="button"
-                onClick={() => {
+              <CustomButton
+                name="InputBackButton"
+                navigate={() => {
                   navigate('/');
                 }}
               >
-                ← 나가기
-              </BackButton>
-              <AddButton type="submit">작성완료</AddButton>
+                {Children}
+              </CustomButton>
+              <CustomButton name="InputAddButton">{Children}</CustomButton>
             </ButtonBox>
           </ContentsBox>
         </form>
@@ -315,44 +317,6 @@ const ButtonBox = styled.div`
   flex: none;
   order: 3;
   flex-grow: 0;
-`;
-
-const AddButton = styled.button`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 10px 16px;
-  gap: 10px;
-  width: 91px;
-  height: 39px;
-  color: ${(props) => props.theme.colors.reversetextcolor};
-  background: ${(props) => props.theme.colors.pointcolor};
-  border-radius: 20px;
-  border: none;
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-  cursor: pointer;
-`;
-
-const BackButton = styled.button`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 10px 0px;
-  gap: 6px;
-  width: 75px;
-  height: 44px;
-  border-radius: 20px;
-  border: none;
-  background-color: transparent;
-  color: ${(props) => props.theme.colors.textcolor};
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-  cursor: pointer;
 `;
 
 const InputNamePass = styled.input`

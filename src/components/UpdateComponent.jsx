@@ -1,7 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, Children } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { __updateDetail } from '../redux/module/DetailSlice';
+import CustomButton from '../hooks/CustomButton';
 
 const UpdateComponent = ({ question, setEdit }) => {
   const dispatch = useDispatch();
@@ -127,20 +128,22 @@ const UpdateComponent = ({ question, setEdit }) => {
                 placeholder="내용을 입력해 주세요"
               />
               <ButtonBox>
-                <BackButton
-                  type="button"
-                  onClick={() => {
+                <CustomButton
+                  name="updateBackButton"
+                  setEdit={() => {
                     setEdit(false);
                   }}
                 >
-                  ← 나가기
-                </BackButton>
-                <AddButton
-                  type="submit"
-                  onClick={() => onSubmitEditor(question.id, updateQuestion)}
+                  {Children}
+                </CustomButton>
+                <CustomButton
+                  name="updateSuccessButton"
+                  onSubmitEditor={() =>
+                    onSubmitEditor(question.id, updateQuestion)
+                  }
                 >
-                  작성완료
-                </AddButton>
+                  {Children}
+                </CustomButton>
               </ButtonBox>
             </ContentsBox>
           </div>
@@ -225,27 +228,4 @@ const ButtonBox = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-`;
-
-const AddButton = styled.button`
-  padding: 10px 16px;
-  gap: 10px;
-  width: 91px;
-  height: 39px;
-  color: ${(props) => props.theme.colors.reversetextcolor};
-  background: ${(props) => props.theme.colors.pointcolor};
-  border-radius: 20px;
-  border: none;
-  cursor: pointer;
-`;
-
-const BackButton = styled.button`
-  gap: 6px;
-  width: 75px;
-  height: 44px;
-  border-radius: 20px;
-  border: none;
-  background-color: transparent;
-  color: ${(props) => props.theme.colors.textcolor};
-  cursor: pointer;
 `;

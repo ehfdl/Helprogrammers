@@ -1,8 +1,9 @@
 import styled from 'styled-components';
-import { useState, useRef } from 'react';
+import { useState, useRef, Children } from 'react';
 import { useDispatch } from 'react-redux';
 import useInput from '../hooks/useInput';
 import { __deleteHint, __editHint } from '../redux/module/HintsSlice';
+import CustomButton from '../hooks/CustomButton';
 
 const HintCard = ({ hint }) => {
   const dispatch = useDispatch();
@@ -104,21 +105,30 @@ const HintCard = ({ hint }) => {
         onChange={onChangePassword}
       />
       {isOpen ? (
-        <DeleteUpdateButton
-          onClick={() => onClickEditHintButtonHandler(hint.id, edithint)}
+        //완료
+        <CustomButton
+          name="hintSuccess"
+          onClickEditHintButtonHandler={() =>
+            onClickEditHintButtonHandler(hint.id, edithint)
+          }
         >
-          완료
-        </DeleteUpdateButton>
+          {Children}
+        </CustomButton>
       ) : (
-        <DeleteUpdateButton onClick={openUpdateHandler}>
-          수정
-        </DeleteUpdateButton>
+        // 수정
+        <CustomButton name="hintUpdate" openUpdateHandler={openUpdateHandler}>
+          {Children}
+        </CustomButton>
       )}
-      <DeleteUpdateButton
-        onClick={() => onClickDeleteHintButtonHandler(hint.id)}
+      {/* 삭제 */}
+      <CustomButton
+        name="hintDelete"
+        onClickDeleteHintButtonHandler={() =>
+          onClickDeleteHintButtonHandler(hint.id)
+        }
       >
-        삭제
-      </DeleteUpdateButton>
+        {Children}
+      </CustomButton>
     </HintBox>
   );
 };
@@ -191,16 +201,4 @@ const InputNamePassword = styled.input`
     -webkit-appearance: none;
     margin: 0;
   }
-`;
-
-const DeleteUpdateButton = styled.button`
-  width: 60px;
-  height: 40px;
-  background-color: ${(props) => props.theme.colors.subbutton};
-  border-radius: 20px;
-  border: transparent;
-  position: relative;
-  margin-left: 10px;
-  left: 42%;
-  cursor: pointer;
 `;
