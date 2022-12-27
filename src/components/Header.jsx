@@ -1,9 +1,8 @@
 import styled from 'styled-components';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { __getQuestions } from '../redux/module/QuestionsSlice';
-// import { __getSearchedQuestions } from '../redux/module/QuestionsSlice';
 import { changeTheme } from '../redux/module/ThemeSlice';
 
 const Header = () => {

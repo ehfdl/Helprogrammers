@@ -3,6 +3,7 @@ import { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import useInput from '../hooks/useInput';
 import { __deleteHint, __editHint } from '../redux/module/HintsSlice';
+import CustomButton from './CustomButton';
 
 const HintCard = ({ hint }) => {
   const dispatch = useDispatch();
@@ -104,21 +105,32 @@ const HintCard = ({ hint }) => {
         onChange={onChangePassword}
       />
       {isOpen ? (
-        <DeleteUpdateButton
+        <CustomButton
+          backgroundcolor={(props) => props.theme.colors.subbutton}
+          left="42%"
+          marginleft="10px"
           onClick={() => onClickEditHintButtonHandler(hint.id, edithint)}
         >
           완료
-        </DeleteUpdateButton>
+        </CustomButton>
       ) : (
-        <DeleteUpdateButton onClick={openUpdateHandler}>
+        <CustomButton
+          backgroundcolor={(props) => props.theme.colors.subbutton}
+          left="42%"
+          marginleft="10px"
+          onClick={openUpdateHandler}
+        >
           수정
-        </DeleteUpdateButton>
+        </CustomButton>
       )}
-      <DeleteUpdateButton
+      <CustomButton
+        backgroundcolor={(props) => props.theme.colors.subbutton}
+        left="42%"
+        marginleft="10px"
         onClick={() => onClickDeleteHintButtonHandler(hint.id)}
       >
         삭제
-      </DeleteUpdateButton>
+      </CustomButton>
     </HintBox>
   );
 };
@@ -193,14 +205,14 @@ const InputNamePassword = styled.input`
   }
 `;
 
-const DeleteUpdateButton = styled.button`
-  width: 60px;
-  height: 40px;
-  background-color: ${(props) => props.theme.colors.subbutton};
-  border-radius: 20px;
-  border: transparent;
-  position: relative;
-  margin-left: 10px;
-  left: 42%;
-  cursor: pointer;
-`;
+// const DeleteUpdateButton = styled.button`
+//   width: 60px;
+//   height: 40px;
+//   background-color: ${(props) => props.theme.colors.subbutton};
+//   border-radius: 20px;
+//   border: transparent;
+//   position: relative;
+//   margin-left: 10px;
+//   left: 42%;
+//   cursor: pointer;
+// `;

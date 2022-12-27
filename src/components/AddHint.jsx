@@ -4,6 +4,7 @@ import useInput from '../hooks/useInput';
 import { useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import { __addHint } from '../redux/module/HintsSlice';
+import CustomButton from './CustomButton';
 
 const AddHint = ({ question }) => {
   const dispatch = useDispatch();
@@ -91,7 +92,14 @@ const AddHint = ({ question }) => {
           ref={focusPassword}
           onChange={onChangePassword}
         />
-        <AddButton onClick={onClickAddHint}>확인</AddButton>
+        <CustomButton
+          color={(props) => props.theme.colors.reversetextcolor}
+          backgroundcolor={(props) => props.theme.colors.pointcolor}
+          left="37%"
+          onClick={onClickAddHint}
+        >
+          확인
+        </CustomButton>
         <br />
         <InputHint
           type="text"
@@ -192,16 +200,6 @@ const InputNamePassword = styled.input`
     -webkit-appearance: none;
     margin: 0;
   }
-`;
-const AddButton = styled.button`
-  width: 60px;
-  height: 40px;
-  background-color: ${(props) => props.theme.colors.pointcolor};
-  border-radius: 20px;
-  border: transparent;
-  position: relative;
-  left: 37%;
-  cursor: pointer;
 `;
 const InputHint = styled.textarea`
   margin-top: 30px;
