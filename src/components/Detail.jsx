@@ -1,10 +1,11 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, Children } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { __deleteDetail, __getDetail } from '../redux/module/DetailSlice';
 import { useNavigate, useParams } from 'react-router-dom';
 import useInput from '../hooks/useInput';
 import UpdateComponent from './UpdateComponent';
+import CustomButton from '../hooks/CustomButton';
 
 // props로 받은 question state
 const Detail = ({ setEdit, edit }) => {
@@ -30,7 +31,7 @@ const Detail = ({ setEdit, edit }) => {
     return <div>존재하지 않는 페이지 입니다..</div>;
   }
 
-  // 삭제 버튼
+  // 삭제 버튼 기능
   const deleteButton = (event, id) => {
     event.preventDefault();
     // const reCheck = window.confirm('정말 삭제하시겠습니까?'); // confirm 으로 재확인
@@ -56,7 +57,7 @@ const Detail = ({ setEdit, edit }) => {
     }
   };
 
-  // 수정 버튼
+  // 수정 버튼 기능
   const updateButton = (event) => {
     event.preventDefault();
     // 토글 수정, 완료
@@ -108,12 +109,18 @@ const Detail = ({ setEdit, edit }) => {
                 ref={focusPassword}
                 onChange={onChangePassword}
               />
-              <AddButton onClick={(event) => updateButton(event)}>
-                수정
-              </AddButton>
-              <AddButton onClick={(event) => deleteButton(event, question.id)}>
-                삭제
-              </AddButton>
+              <CustomButton
+                name="updateButton"
+                updateButton={(event) => updateButton(event)}
+              >
+                {Children}
+              </CustomButton>
+              <CustomButton
+                name="deleteButton"
+                deleteButton={(event) => deleteButton(event, question.id)}
+              >
+                {Children}
+              </CustomButton>
             </form>
           </QuestionTitle>
           <QuestionLink>Link</QuestionLink>
@@ -218,14 +225,6 @@ const InputNamePassword = styled.input`
     -webkit-appearance: none;
     margin: 0;
   }
-`;
-const AddButton = styled.button`
-  height: 40px;
-  background-color: transparent;
-  border: transparent;
-  color: ${(props) => props.theme.colors.pointcolor};
-  position: relative;
-  cursor: pointer;
 `;
 const QuestionLink = styled.a`
   color: ${(props) => props.theme.colors.pointcolor};
